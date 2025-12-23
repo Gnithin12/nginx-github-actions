@@ -15,9 +15,11 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t nginx-demo .
-
       - name: Run Nginx container
         run: docker run -d -p 8080:80 nginx-demo
+
+      - name: Wait for Nginx
+        run: sleep 5
 
       - name: Verify deployment
         run: curl http://localhost:8080
