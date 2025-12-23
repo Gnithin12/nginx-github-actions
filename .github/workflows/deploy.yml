@@ -1,0 +1,23 @@
+name: Nginx CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t nginx-demo .
+
+      - name: Run Nginx container
+        run: docker run -d -p 8080:80 nginx-demo
+
+      - name: Verify deployment
+        run: curl http://localhost:8080
